@@ -12,3 +12,15 @@ def parse_be_uint32(buffer):
 
 def parse_be_bytes(buffer):
     return binascii.b2a_hex(bytes(buffer))
+
+
+def to_be_uint32(val):
+    return struct.pack(">I", val)[0]
+
+
+def to_be_uint8(val):
+    return struct.pack(">B", val)[0]
+
+
+def to_be_bytes(hex_str):
+    return binascii.a2b_hex(hex_str)

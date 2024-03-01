@@ -1,4 +1,4 @@
-from sdk.parser import util
+from sdk import util
 
 
 class JobParser:
@@ -11,7 +11,6 @@ class JobParser:
 
         self.start_offset = 0
         self.end_offset = 0
-
         self.buffer = msg_buffer
 
     def parse(self):
