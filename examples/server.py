@@ -5,7 +5,7 @@ import threading
 import time
 
 from dataclasses import dataclass
-from sdk.message import parse_message,JOB_MESSAGE_TYPE, SUBMIT_RESULT_MESSAGE_TYPE
+from sdk.message.node_message import parse_node_message, JOB_MESSAGE_TYPE, SUBMIT_RESULT_MESSAGE_TYPE
 
 
 HOST = "192.168.66.130"
@@ -101,7 +101,7 @@ class Server:
                 time.sleep(1)
                 continue
 
-            data = parse_message(msg_buffer)
+            data = parse_node_message(msg_buffer)
             if data["type"] == JOB_MESSAGE_TYPE:
                 self.job_message_queue.put(data["payload"])
             elif data[type] == SUBMIT_RESULT_MESSAGE_TYPE:
