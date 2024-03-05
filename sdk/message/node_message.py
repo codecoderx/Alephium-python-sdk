@@ -1,3 +1,5 @@
+import binascii
+
 from sdk import util
 from sdk.parser.job_parser import JobParser
 from sdk.parser.submit_result_parser import SubmitResultParser
@@ -37,7 +39,8 @@ def parse_submit_result(submit_result_buffer):
 
 def build_submit_message(nonce_buffer, headerBlob_buffer, txsBlob_buffer):
     block = nonce_buffer + headerBlob_buffer + txsBlob_buffer
-    block_size = len(block)
+    block_bytes = binascii.a2b_hex(block)
+    block_size = len(block_bytes)
     message_size = 4 + 1 + block_size
     msg_header = b''
     msg_header += util.to_be_uint32(message_size)

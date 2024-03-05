@@ -31,6 +31,9 @@ class JobParser:
         self.end_offset = self.start_offset + job["headerBlobLength"]
         job["headerBlob"] = util.parse_be_bytes(self.buffer[self.start_offset: self.end_offset])
 
+        job["bits"] = job["headerBlob"][-8:]
+        job["timestamp"] = job["headerBlob"][-24:-8]
+
         self.start_offset += job["headerBlobLength"]
         self.end_offset = self.start_offset + self.txsBlobLength_size
         job["txsBlobLength"] = util.parse_be_uint32(self.buffer[self.start_offset: self.end_offset])

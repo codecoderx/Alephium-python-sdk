@@ -1,3 +1,4 @@
+import binascii
 import socket
 import struct
 import queue
@@ -10,7 +11,7 @@ from sdk.message.node_message import parse_node_message, JOB_MESSAGE_TYPE, SUBMI
 
 HOST = "192.168.66.130"
 PORT = 3899
-BUFFER_SIZE = 1024
+BUFFER_SIZE = 10240
 HEADER_SIZE = 4
 
 GROUP_SIZE = 4
@@ -49,7 +50,7 @@ class MinerJob:
             headerBlob=job["headerBlob"],
             txsBlob=job["txsBlob"],
             targetBlob=job["targetBlob"],
-            target=max_target,
+            target=job["targetBlob"],
             chainIndex=job["fromGroup"] * GROUP_SIZE + job["toGroup"]
         )
 
@@ -73,7 +74,6 @@ class Server:
         while True:
             _buffer = self.ss.recv(BUFFER_SIZE)
             _buffer_len = len(_buffer)
-
             # save buffer to cache buffer
             end_offset = start_offset + _buffer_len
             buffer[start_offset:end_offset] = _buffer

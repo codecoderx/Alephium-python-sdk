@@ -15,11 +15,11 @@ def parse_be_bytes(buffer):
 
 
 def to_be_uint32(val):
-    return struct.pack(">I", val)[0]
+    return binascii.b2a_hex(struct.pack(">I", val))
 
 
 def to_be_uint8(val):
-    return struct.pack(">B", val)[0]
+    return binascii.b2a_hex(struct.pack(">B", val))
 
 
 def to_be_bytes(hex_str):
